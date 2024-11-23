@@ -1,0 +1,16 @@
+# VS Code specific files
+.vscode/
+*.code-workspace
+.history/
+
+# Movies directory
+movies/
+/movies/
+
+# Common system files
+.DS_Store
+Thumbs.db
+
+# Environment files (optional but recommended)
+.env
+.env.local
