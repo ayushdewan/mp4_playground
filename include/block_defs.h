@@ -18,6 +18,22 @@
 #define UDTA 0x75647461
 #define TKHD 0x746B6864
 #define EDTS 0x65647473
+#define ELST 0x656C7374
+#define MDHD 0x6D646864
+#define HDLR 0x68646C72
+#define META 0x6D657461
+#define VMHD 0x766D6864
+#define SMHD 0x736D6864
+#define DINF 0x64696E66
+#define STSD 0x73747364
+#define STTS 0x73747473
+#define STSC 0x73747363
+#define STSZ 0x7374737A
+#define STCO 0x7374636F
+#define SGPD 0x73677064
+#define SBGP 0x73626770
+#define STSS 0x73747373
+#define CTTS 0x63747473
 
 /* MP4Box represents the basic building block of an MP4 file.
  * Each box contains size and type information along with its position in the

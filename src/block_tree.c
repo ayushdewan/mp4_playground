@@ -25,7 +25,8 @@ void add_child_block_node(BlockNode *parent, BlockNode *child) {
     } else {
       parent->capacity *= 2;
       parent->children = (BlockNode **)realloc(
-          parent->children, parent->capacity * sizeof(BlockNode));
+          parent->children,
+          parent->capacity * sizeof(BlockNode));
     }
   }
 
@@ -40,6 +41,7 @@ void free_block_tree(BlockNode *root) {
     free_block_tree(root->children[i]);
   }
 
+  // sometimes these variables are NULL, and that's ok with stdlib free
   free(root->box);
   free(root->children);
   free(root);
@@ -49,12 +51,27 @@ void print_block_tree(BlockNode *root, int indent) {
   assert(root != NULL);
 
   // Print the current node
-  if (root->box != NULL) {
-    // needs reverse byte order for display
-    uint32_t type = ntohl(root->box->type);
-    printf("%*s%s (%d bytes)\n", indent, "", (char*)&type, root->box->size);
-  } else {
+  if (root->box == NULL) {
     printf("%*s%s\n", indent, "", "ROOT");
+  } else {
+    // needs reverse byte order for display, kinda hacky
+    uint32_t type = ntohl(root->box->type);
+    char type_str[5];
+    snprintf(
+        type_str,
+        5,
+        "%c%c%c%c",
+        type & 0xFF,
+        (type >> 8) & 0xFF,
+        (type >> 16) & 0xFF,
+        (type >> 24) & 0xFF);
+    printf(
+        "%*s%s (%d bytes, starts at %ld)\n",
+        indent,
+        "",
+        type_str,
+        root->box->size,
+        root->box->start_position);
   }
 
   // Recursively print all children

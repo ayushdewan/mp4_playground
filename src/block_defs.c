@@ -17,10 +17,8 @@ MP4Box *read_box_header(FILE *file) {
 
   // Free this when the tree is freed
   MP4Box *box = (MP4Box *)malloc(sizeof(MP4Box));
-  box->size =
-      (header[0] << 24) | (header[1] << 16) | (header[2] << 8) | header[3];
-  box->type =
-      (header[4] << 24) | (header[5] << 16) | (header[6] << 8) | header[7];
+  box->size = ntohl(*(uint32_t *)header);
+  box->type = ntohl(*(uint32_t *)(header + sizeof(uint32_t)));
   box->start_position = ftell(file) - 8;
 
   if (box->size == 1) {
