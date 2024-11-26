@@ -1,6 +1,6 @@
 # Compiler settings
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g -Iinclude
+CFLAGS = -Wall -Wextra -Werror -g -I$(INC_DIR)
 
 # Project structure
 SRC_DIR = src
